@@ -1,40 +1,35 @@
 package com.linkedin.collections;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 
 public class RoomService {
 
-	private Collection<Room> inventory;
+	private final Collection<Room> inventory;
 
 	public RoomService() {
-		this.inventory = new HashSet<>();
+		// this.inventory = new ArrayList<>();
+		this.inventory = new LinkedHashSet<>();
 	}
 	
 	public boolean hasRoom(Room room) {
-		
-	// 1. Returns a boolean that indicates if the Room Inventory contains a Room.
-		
-		return false;
+		// 1. Returns a boolean that indicates if the Room Inventory contains a Room.
+		return inventory.contains(room);
 	}
 	
 	public Room[] asArray() {
-		
-	// 2. Returns all Rooms as an Array of Rooms in the **order** they were Added.
-		
-		return null;
+		// 2. Returns all Rooms as an Array of Rooms in the **order** they were Added.
+		return inventory.toArray(new Room[0]);
 	}
 	
 	public Collection<Room> getByType(String type){
-
-	/*
-	   3. Return a new Collection of Rooms where Room#type matches the provided String.
-		  The original Room Inventory collection MUST NOT BE MODIFIED.
-	*/
-		
-		return null;
-		
+		/*
+		   3. Return a new Collection of Rooms where Room#type matches the provided String.
+			  The original Room Inventory collection MUST NOT BE MODIFIED.
+		*/
+		// return inventory.stream().filter(e -> type.equals(e.getType())).collect(Collectors.toList());
+		Collection<Room> copy = new HashSet<>(inventory);
+		copy.removeIf(e -> !type.equals(e.getType()));
+		return copy;
 	}
 
 	public Collection<Room> getInventory() {
