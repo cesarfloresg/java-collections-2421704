@@ -8,31 +8,26 @@ import java.util.stream.Collectors;
 
 public class RoomService {
 
-	private Collection<Room> inventory;
+	private final Collection<Room> inventory;
 
 	public RoomService() {
 		this.inventory = new LinkedHashSet<>();
 	}
 	
 	public void applyDiscount(final double discount) {
-		
 		//Reduces the rate of each room by the provided discount
-	
+		inventory.forEach(e -> e.setRate(e.getRate() * (1 - discount)));
 	}
 
 	public Collection<Room> getRoomsByCapacity(final int requiredCapacity) {
-		
 		//Returns a new collection of rooms that meet or exceed the provided capacity
-		
-		return null;
+		return inventory.stream().filter(e -> e.getCapacity() >= requiredCapacity).collect(Collectors.toList());
 		
 	}
 	
 	public Collection<Room> getRoomByRateAndType(final double rate, final String type){
-	
 		//Returns a new collection of rooms with a rate below the provided rate and that match the provided type
-		
-		return null;
+		return inventory.stream().filter(e -> type.equals(e.getType())).filter(e -> e.getRate() < rate).collect(Collectors.toList());
 		
 	}
 	
