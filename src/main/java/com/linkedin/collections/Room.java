@@ -1,6 +1,13 @@
 package com.linkedin.collections;
 
+import java.util.Comparator;
+
 public class Room {
+
+	public static Comparator<Room> RATE_COMPARATOR = Comparator
+			.comparing(Room::getRate)
+			.thenComparing(Room::getName)
+			.thenComparing(Room::getType);
 
 	private String name;
 
